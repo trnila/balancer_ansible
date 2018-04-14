@@ -1,0 +1,13 @@
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/balancer_ctrl
+User=pi
+WorkingDirectory=/usr/local/share/go/src/github.com/trnila/balancer_ctrl/
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+Environment=CTRL_SERIAL=/dev/ttyAMA0
+Environment=CTRL_LISTEN=:3000
+
+[Install]
+WantedBy=multi-user.target

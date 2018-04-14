@@ -1,0 +1,8 @@
+
+---
+- name: rpi
+  hosts: all
+  become: true
+  roles:
+      - common
+      - balancer

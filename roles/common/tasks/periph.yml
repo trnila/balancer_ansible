@@ -1,0 +1,19 @@
+---
+- name: enable_uart=1 in /boot/config.txt
+  lineinfile:
+      path: /boot/config.txt
+      line: 'enable_uart=1'
+  notify: restart pi
+
+- name: disable bluetooth dts overlay so uart is remaped back
+  lineinfile:
+      path: /boot/config.txt
+      line: 'dtoverlay=pi3-disable-bt'
+  notify: restart pi
+
+- name: disable linux console on uart, because it is used for communication with stm32
+  replace:
+      path: /boot/cmdline.txt
+      regexp: 'console=serial[^ ]+'
+      replace: ''
+  notify: restart pi

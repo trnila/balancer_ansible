@@ -1,0 +1,30 @@
+---
+- name: install golang
+  package:
+      name: golang
+      state: present
+
+- name: install git
+  package:
+      name: git
+      state: present
+
+- name: install balancer server
+  shell: go get github.com/trnila/balancer_ctrl
+  environment: 
+    GOPATH: /usr/local/share/go/
+    GOBIN: /usr/local/bin
+  notify: restart balancer_ctrl
+
+- name: copy balancer_ctrl.service
+  copy:
+      src: files/etc/systemd/system/balancer_ctrl.service
+      dest: /etc/systemd/system/balancer_ctrl.service
+  notify: restart balancer_ctrl
+
+- name: enable balancer_ctrl at boot
+  service:
+    name: balancer_ctrl
+    state: started
+    enabled: yes
+

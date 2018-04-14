@@ -1,0 +1,12 @@
+---
+- name: install base packages
+  package:
+      name: "{{ item }}"
+      state: present
+  with_items:
+    - htop
+    - tmux
+    - vim
+    - minicom
+
+- import_tasks: periph.yml

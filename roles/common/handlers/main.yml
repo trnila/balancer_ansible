@@ -1,0 +1,3 @@
+- name: restart pi
+  listen: restart pi
+  shell: reboot
