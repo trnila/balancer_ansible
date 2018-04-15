@@ -1,0 +1,70 @@
+---
+- name: install hostapd
+  package:
+      name: hostapd
+      state: present
+
+- name: copy hostapd.conf
+  template:
+      src: templates/hostapd.conf.j2
+      dest: /etc/hostapd/hostapd.conf
+
+- name: enable configuration of hostapd
+  lineinfile:
+      path: /etc/default/hostapd
+      regexp: '^#?DAEMON_CONF=.+'
+      line: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
+  notify: restart hostapd
+
+
+- name: enable hostapd at boot
+  service:
+    name: hostapd
+    state: started
+    enabled: yes
+
+- name: disable debian networking
+  service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  with_items:
+      - networking
+      - dhcpcd
+
+- name: enable systemd-networkd
+  service:
+    name: systemd-networkd
+    state: started
+    enabled: yes
+
+- name: enable systemd-resolved
+  service:
+    name: systemd-resolved
+    state: started
+    enabled: yes
+
+- name: copy systemd-resolved resolv stub to /etc/resolv.conf
+  file:
+      src: /run/systemd/resolve/resolv.conf
+      dest: /etc/resolv.conf
+      state: link
+      force: true
+
+- name: copy eth0 link configuration 
+  copy:
+      src: files/20-eth0.link
+      dest: /etc/systemd/network/
+  notify: restart systemd-networkd
+
+- name: copy eth0 configuration 
+  copy:
+      src: files/20-eth0.network
+      dest: /etc/systemd/network/
+  notify: restart systemd-networkd
+
+- name: copy wlan0 configuration 
+  copy:
+      src: files/20-wlan0.network
+      dest: /etc/systemd/network/
+  notify: restart systemd-networkd

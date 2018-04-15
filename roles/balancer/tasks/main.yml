@@ -18,7 +18,7 @@
 
 - name: copy balancer_ctrl.service
   copy:
-      src: files/etc/systemd/system/balancer_ctrl.service
+      src: files/balancer_ctrl.service
       dest: /etc/systemd/system/balancer_ctrl.service
   notify: restart balancer_ctrl
 
@@ -28,3 +28,4 @@
     state: started
     enabled: yes
 
+- import_tasks: wifi.yml
