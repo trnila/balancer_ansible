@@ -6,6 +6,10 @@
   listen: restart hostapd
   service: name="hostapd.service" state="restarted" daemon-reload="yes"
 
-- name: restart systemd-networkd
-  listen: restart systemd-networkd
-  service: name="systemd-networkd.service" state="restarted"
+- name: reload iptables
+  listen: reload iptables
+  shell: iptables-restore /etc/iptables/rules.v4
+
+- name: reload iptables
+  listen: reload iptables
+  shell: ip6tables-restore /etc/iptables/rules.v6
