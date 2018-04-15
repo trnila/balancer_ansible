@@ -64,3 +64,7 @@
     dest: /etc/iptables/rules.v6
   notify: reload iptables
 
+- lineinfile:
+    path: /etc/hosts
+    line: '10.10.10.1 balancer.local'
+
