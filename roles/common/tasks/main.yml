@@ -8,5 +8,6 @@
     - tmux
     - vim
     - minicom
+    - socat
 
 - import_tasks: periph.yml
