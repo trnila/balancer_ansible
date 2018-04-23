@@ -11,3 +11,4 @@
     - socat
 
 - import_tasks: periph.yml
+- import_tasks: ssh.yml
