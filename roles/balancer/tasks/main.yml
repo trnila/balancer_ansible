@@ -16,6 +16,11 @@
     GOBIN: /usr/local/bin
   notify: restart balancer_ctrl
 
+- name: set cap_net_bind_service to balancer_ctrl binary so that we can run it on privileged port (ie 80)
+  capabilities:
+    path: /usr/local/bin/balancer_ctrl
+    capability: cap_net_bind_service+ep
+
 - name: copy balancer_ctrl.service
   copy:
       src: files/balancer_ctrl.service
