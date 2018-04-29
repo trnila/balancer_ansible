@@ -1,0 +1,10 @@
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/bin/frontend_ctrl.py --api-url http://172.20.6.43 --serial /dev/ttyAMA0
+User=pi
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
