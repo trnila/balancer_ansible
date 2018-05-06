@@ -1,0 +1,22 @@
+---
+- name: download controller program
+  get_url:
+      url: https://raw.githubusercontent.com/trnila/stm32f429-balancer-ui/master/ctrl/ctrl.py
+      dest: /usr/local/bin/frontend_ctrl.py
+      mode: "a+x"
+
+- pip:
+    executable: /usr/bin/pip3
+    requirements: https://raw.githubusercontent.com/trnila/stm32f429-balancer-ui/master/ctrl/requirements.txt
+
+- name: copy frontend_ctrl.service
+  copy:
+      src: files/frontend_ctrl.service
+      dest: /etc/systemd/system/
+  notify: restart frontend_ctrl
+
+- name: enable frontend_ctrl.service
+  service:
+    name: frontend_ctrl
+    state: started
+    enabled: yes

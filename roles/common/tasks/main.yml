@@ -12,7 +12,7 @@
     - cmake
     - gcc-arm-none-eabi
     - python3-serial
-    - python2-serial
+    - python3-pip
 
 - import_tasks: periph.yml
 - import_tasks: ssh.yml

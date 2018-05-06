@@ -1,8 +1,19 @@
 
 ---
-- name: rpi
+- name: base install
   hosts: all
   become: true
   roles:
       - common
+
+- name: balancer
+  hosts: balancer
+  become: true
+  roles:
       - balancer
+
+- name: balancer frontend install
+  hosts: frontend
+  become: true
+  roles:
+      - frontend
