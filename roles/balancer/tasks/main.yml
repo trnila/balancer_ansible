@@ -10,7 +10,7 @@
       state: present
 
 - name: install balancer server
-  shell: go get github.com/trnila/balancer_ctrl
+  shell: go get -u github.com/trnila/balancer_ctrl
   environment: 
     GOPATH: /usr/local/share/go/
     GOBIN: /usr/local/bin
