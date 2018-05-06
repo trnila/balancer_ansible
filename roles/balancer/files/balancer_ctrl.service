@@ -8,6 +8,7 @@ ProtectHome=true
 PrivateTmp=true
 Environment=CTRL_SERIAL=/dev/ttyAMA0
 Environment=CTRL_BIND=:80
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

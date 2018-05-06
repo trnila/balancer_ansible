@@ -5,6 +5,7 @@ User=pi
 ProtectSystem=full
 ProtectHome=true
 PrivateTmp=true
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
