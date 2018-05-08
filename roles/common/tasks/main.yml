@@ -13,6 +13,19 @@
     - gcc-arm-none-eabi
     - python3-serial
     - python3-pip
+    - git
+
+- name: clone examples
+  git:
+    repo: https://github.com/trnila/stm32_rpi_examples
+    dest: /opt/stm32_rpi_examples
+
+- name: install stm32 tools binaries
+  make:
+      chdir: /opt/stm32_rpi_examples
+      target: install
+      params:
+          PREFIX: /usr/local/
 
 - import_tasks: periph.yml
 - import_tasks: ssh.yml
