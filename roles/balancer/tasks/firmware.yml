@@ -1,0 +1,26 @@
+- name: clone balancer repository
+  git:
+      repo: https://github.com/trnila/ball_balancer.git
+      dest: /opt/balancer
+
+- name: create build directory
+  file:
+      path: /opt/balancer/build
+      state: directory
+
+- name: build balancer firmware
+  command: "{{item}}"
+  args:
+      chdir: /opt/balancer/build
+  with_items:
+      - cmake ..
+      - make -j4
+
+- name: temporary stop balancer_ctrl
+  service: name=balancer_ctrl state=stopped
+
+- name: flash balancer firmware
+  command: stm_flash /opt/balancer/build/ballbalancer.bin
+
+- name: start balancer_ctrl again
+  service: name=balancer_ctrl state=started

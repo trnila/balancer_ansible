@@ -34,3 +34,4 @@
     enabled: yes
 
 - import_tasks: wifi.yml
+- import_tasks: firmware.yml
