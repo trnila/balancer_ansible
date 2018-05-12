@@ -42,6 +42,18 @@
           interface wlan0
             static ip_address=10.10.10.1/24
 
+- name: enable additional configuration of dnsmasq
+  lineinfile:
+      path: /etc/dnsmasq.conf
+      line: conf-dir=/etc/dnsmasq.d/,*.conf
+
+- name: setup dnsmasq dhcp address range
+  copy:
+      dest: /etc/dnsmasq.d/wlan0.conf
+      content: |
+          interface wlan0
+          dhcp-range=10.10.10.10,10.10.10.254,255.255.255.0,48h
+
 - name: enable ip forwarding accross interfaces
   sysctl:
     name: net.ipv4.ip_forward
