@@ -6,7 +6,9 @@ WorkingDirectory=/usr/local/share/go/src/github.com/trnila/balancer_ctrl/
 ProtectSystem=full
 ProtectHome=true
 PrivateTmp=true
-Environment=CTRL_SERIAL=/dev/ttyAMA0
+{% if CTRL_SERIAL is defined %}
+Environment=CTRL_SERIAL={{ CTRL_SERIAL }}
+{% endif %}
 Environment=CTRL_BIND=:80
 Restart=always
 
