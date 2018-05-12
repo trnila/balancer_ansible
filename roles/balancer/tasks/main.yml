@@ -11,7 +11,7 @@
 
 - name: install balancer server
   shell: go get -u github.com/trnila/balancer_ctrl
-  environment: 
+  environment:
     GOPATH: /usr/local/share/go/
     GOBIN: /usr/local/bin
   notify: restart balancer_ctrl
@@ -35,3 +35,4 @@
 
 - import_tasks: wifi.yml
 - import_tasks: firmware.yml
+  when: FLASH_FIRMWARE|default(false)|bool
