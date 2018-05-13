@@ -5,6 +5,13 @@
       line: 'enable_uart=1'
   notify: restart pi
 
+- name: enable shutdown gpio pin
+  lineinfile:
+      path: /boot/config.txt
+      line: 'dtoverlay=gpio-shutdown,gpio_pin={{ GPIO_SHUTDOWN }}'
+  notify: restart pi
+  when: GPIO_SHUTDOWN|default(false)
+
 - name: disable bluetooth dts overlay so uart is remaped back
   lineinfile:
       path: /boot/config.txt
