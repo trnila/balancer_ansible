@@ -13,6 +13,7 @@
     - gcc-arm-none-eabi
     - python3-serial
     - python3-pip
+    - python3-smbus
     - git
 
 - name: clone examples
