@@ -6,6 +6,10 @@
   listen: restart hostapd
   service: name="hostapd.service" state="restarted" daemon-reload="yes"
 
+- name: restart radvd
+  listen: restart radvd
+  service: name="radvd.service" state="restarted" daemon-reload="yes"
+
 - name: reload iptables
   listen: reload iptables
   shell: iptables-restore /etc/iptables/rules.v4

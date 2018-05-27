@@ -23,7 +23,6 @@
     state: started
     enabled: yes
 
-
 - name: install dnsmasq
   package:
       name: dnsmasq
@@ -39,8 +38,9 @@
   blockinfile:
       path: /etc/dhcpcd.conf
       block: |
-          interface=wlan0
+          interface wlan0
             static ip_address=10.10.10.1/24
+            static ip6_address=fd64:cafe::1/64
 
 - name: enable additional configuration of dnsmasq
   lineinfile:
@@ -51,7 +51,7 @@
   copy:
       dest: /etc/dnsmasq.d/wlan0.conf
       content: |
-          interface wlan0
+          interface=wlan0
           dhcp-range=10.10.10.10,10.10.10.254,255.255.255.0,48h
 
 - name: enable ip forwarding accross interfaces
@@ -78,5 +78,32 @@
 
 - lineinfile:
     path: /etc/hosts
-    line: '10.10.10.1 balancer.local'
+    line: "{{ item }}"
+  with_items:
+      - 'fd64:cafe::1 balancer.local'
+      - '10.10.10.1 balancer.local'
 
+- name: enable ipv6 forwarding accross interfaces
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- name: install radvd
+  package:
+      name: radvd
+      state: present
+
+- name: copy radvd.conf
+  template:
+      src: templates/radvd.conf.j2
+      dest: /etc/radvd.conf.j2
+  notify: restart radvd
+
+- name: enable radvd at boot
+  service:
+    name: radvd
+    state: started
+    enabled: yes
