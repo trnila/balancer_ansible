@@ -1,22 +1,11 @@
 ---
-- name: download controller program
-  get_url:
-      url: https://raw.githubusercontent.com/trnila/stm32f429-balancer-ui/master/ctrl/ctrl.py
-      dest: /usr/local/bin/frontend_ctrl.py
-      mode: "a+x"
+- name: clone balacer-ui to /opt
+  git:
+    repo: https://github.com/trnila/stm32f429-balancer-ui.git
+    dest: /opt/balancer-ui
 
-- pip:
-    executable: /usr/bin/pip3
-    requirements: https://raw.githubusercontent.com/trnila/stm32f429-balancer-ui/master/ctrl/requirements.txt
-
-- name: copy frontend_ctrl.service
-  template:
-      src: templates/frontend_ctrl.service.j2
-      dest: /etc/systemd/system/frontend_ctrl.service
+- name: make install
+  make:
+    chdir: /opt/balancer-ui/ctrl_c
+    target: install
   notify: restart frontend_ctrl
-
-- name: enable frontend_ctrl.service
-  service:
-    name: frontend_ctrl
-    state: started
-    enabled: yes
