@@ -99,7 +99,7 @@
 - name: copy radvd.conf
   template:
       src: templates/radvd.conf.j2
-      dest: /etc/radvd.conf.j2
+      dest: /etc/radvd.conf
   notify: restart radvd
 
 - name: enable radvd at boot

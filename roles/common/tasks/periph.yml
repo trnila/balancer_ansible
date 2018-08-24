@@ -8,7 +8,7 @@
 - name: enable shutdown gpio pin
   lineinfile:
       path: /boot/config.txt
-      line: 'dtoverlay=gpio-shutdown,gpio_pin={{ GPIO_SHUTDOWN }}'
+      line: 'dtoverlay=gpio-shutdown'
   notify: restart pi
   when: GPIO_SHUTDOWN|default(false)
 

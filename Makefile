@@ -1,2 +1,2 @@
 all:
-	ansible-playbook -i inventory site.yml
+	ansible-playbook site.yml
