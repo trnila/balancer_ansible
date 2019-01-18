@@ -1,7 +1,3 @@
-- name: restart balancer_ctrl
-  listen: restart balancer_ctrl
-  service: name="balancer_ctrl.service" state="restarted" daemon-reload="yes"
-
 - name: restart hostapd
   listen: restart hostapd
   service: name="hostapd.service" state="restarted" daemon-reload="yes"

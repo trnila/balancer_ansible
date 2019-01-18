@@ -1,3 +1,0 @@
-- name: restart frontend_ctrl
-  listen: restart frontend_ctrl
-  service: name="frontend_ctrlc.service" state="restarted" daemon-reload="yes"
